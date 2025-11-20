@@ -1,0 +1,5 @@
+{
+  "name": "GenAI Quiz Master",
+  "description": "Une application de révision intelligente qui transforme vos documents PDF et Markdown en QCM interactifs grâce à l'IA Gemini.",
+  "requestFramePermissions": []
+}
