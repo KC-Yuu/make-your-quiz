@@ -1,17 +1,21 @@
 import { GoogleGenAI, Type } from "@google/genai";
 import { QuizQuestion } from "../types";
 
-const fileToGenerativePart = async (file: File): Promise<{ inlineData: { data: string; mimeType: string } } | { text: string }> => {
+const fileToGenerativePart = async (
+  file: File
+): Promise<
+  { inlineData: { data: string; mimeType: string } } | { text: string }
+> => {
   return new Promise((resolve, reject) => {
     const reader = new FileReader();
 
-    if (file.type === 'application/pdf') {
+    if (file.type === "application/pdf") {
       reader.onloadend = () => {
-        const base64String = (reader.result as string).split(',')[1];
+        const base64String = (reader.result as string).split(",")[1];
         resolve({
           inlineData: {
             data: base64String,
-            mimeType: 'application/pdf',
+            mimeType: "application/pdf",
           },
         });
       };
@@ -19,7 +23,7 @@ const fileToGenerativePart = async (file: File): Promise<{ inlineData: { data: s
     } else {
       reader.onloadend = () => {
         resolve({
-          text: reader.result as string
+          text: reader.result as string,
         });
       };
       reader.readAsText(file);
@@ -28,7 +32,10 @@ const fileToGenerativePart = async (file: File): Promise<{ inlineData: { data: s
   });
 };
 
-export const generateQuizFromContent = async (file: File, apiKey: string): Promise<QuizQuestion[]> => {
+export const generateQuizFromContent = async (
+  file: File,
+  apiKey: string
+): Promise<QuizQuestion[]> => {
   if (!apiKey) {
     throw new Error("Clé API manquante. Veuillez la fournir pour continuer.");
   }
@@ -52,12 +59,9 @@ export const generateQuizFromContent = async (file: File, apiKey: string): Promi
 
   try {
     const response = await ai.models.generateContent({
-      model: 'gemini-2.5-flash',
+      model: "gemini-2.5-flash",
       contents: {
-        parts: [
-          filePart,
-          { text: prompt }
-        ]
+        parts: [filePart, { text: prompt }],
       },
       config: {
         responseMimeType: "application/json",
@@ -66,16 +70,32 @@ export const generateQuizFromContent = async (file: File, apiKey: string): Promi
           items: {
             type: Type.OBJECT,
             properties: {
-              question: { type: Type.STRING, description: "L'intitulé de la question" },
+              question: {
+                type: Type.STRING,
+                description: "L'intitulé de la question",
+              },
               options: {
                 type: Type.ARRAY,
                 items: { type: Type.STRING },
-                description: "Liste de 4 choix de réponse possibles"
+                description: "Liste de 4 choix de réponse possibles",
               },
-              correctAnswerIndex: { type: Type.INTEGER, description: "L'index (0-3) de la réponse correcte dans le tableau options" },
-              explanation: { type: Type.STRING, description: "Une brève explication de pourquoi c'est la bonne réponse" }
+              correctAnswerIndex: {
+                type: Type.INTEGER,
+                description:
+                  "L'index (0-3) de la réponse correcte dans le tableau options",
+              },
+              explanation: {
+                type: Type.STRING,
+                description:
+                  "Une brève explication de pourquoi c'est la bonne réponse",
+              },
             },
-            required: ["question", "options", "correctAnswerIndex", "explanation"],
+            required: [
+              "question",
+              "options",
+              "correctAnswerIndex",
+              "explanation",
+            ],
           },
         },
       },
@@ -92,6 +112,8 @@ export const generateQuizFromContent = async (file: File, apiKey: string): Promi
     if (error.toString().includes("429")) {
       throw new Error("QUOTA_EXCEEDED");
     }
-    throw new Error("Impossible de générer le quiz. Vérifiez votre clé d'API, le fichier, ou réessayez plus tard.");
+    throw new Error(
+      "Impossible de générer le quiz. Vérifiez votre clé d'API, le fichier, ou réessayez plus tard."
+    );
   }
 };
