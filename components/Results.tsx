@@ -43,7 +43,7 @@ export const Results: React.FC<ResultsProps> = ({
           <div className="mt-6 text-center">
             <button
               onClick={onRetry}
-              className="flex justify-center py-3 px-4 border border-transparent rounded-md text-sm font-bold bg-[var(--color-accent)] hover:bg-[var(--color-accent)]/90 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[var(--color-accent)]/60 transition-colors mx-auto items-center gap-2 text-[var(--color-foreground)]"
+              className="flex justify-center py-3 px-4 border border-transparent rounded-md text-sm font-bold bg-[var(--color-accent)] hover:bg-[var(--color-accent)]/90 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[var(--color-accent)]/60 transition-colors mx-auto items-center cursor-pointer gap-2 text-[var(--color-foreground)]"
             >
               <RotateCcw className="w-5 h-5" />
               Charger un autre cours
