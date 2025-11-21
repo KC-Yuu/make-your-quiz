@@ -31,17 +31,20 @@ Suivez ces étapes pour lancer l'application sur votre machine locale.
 ### Installation et Lancement
 
 1.  **Clonez le dépôt** (ou téléchargez les fichiers) :
+
     ```bash
     git clone git@github.com:KC-Yuu/make-your-quiz.git
     cd make-your-quiz
     ```
 
 2.  **Installez les dépendances** :
+
     ```bash
     npm install
     ```
 
 3.  **Lancez l'application en mode développement** :
+
     ```bash
     npm run dev
     ```

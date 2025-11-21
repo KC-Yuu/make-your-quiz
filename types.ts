@@ -16,12 +16,12 @@ export interface QuizResult {
 }
 
 export enum AppState {
-  API_KEY_INPUT = 'API_KEY_INPUT',
-  UPLOAD = 'UPLOAD',
-  PROCESSING = 'PROCESSING',
-  QUIZ = 'QUIZ',
-  RESULTS = 'RESULTS',
-  ERROR = 'ERROR'
+  API_KEY_INPUT = "API_KEY_INPUT",
+  UPLOAD = "UPLOAD",
+  PROCESSING = "PROCESSING",
+  QUIZ = "QUIZ",
+  RESULTS = "RESULTS",
+  ERROR = "ERROR",
 }
 
-export type FileType = 'application/pdf' | 'text/markdown' | 'text/plain';
+export type FileType = "application/pdf" | "text/markdown" | "text/plain";
